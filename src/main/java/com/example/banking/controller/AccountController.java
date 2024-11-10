@@ -1,6 +1,7 @@
 package com.example.banking.controller;
 
 import com.example.banking.dto.AccountDto;
+import com.example.banking.dto.TransactionDto;
 import com.example.banking.dto.TransferFundDto;
 import com.example.banking.service.AccountService;
 import org.apache.coyote.Response;
@@ -74,6 +75,15 @@ public class AccountController {
     public ResponseEntity<String> transferFund(@RequestBody TransferFundDto transferFundDto){
         accountService.transferFunds(transferFundDto);
         return ResponseEntity.ok("Transfer Successfull");
+    }
+
+
+    //Build transactions REST API
+
+    @GetMapping("{id}/transactions")
+    public ResponseEntity<List<TransactionDto>> fetchAccountTransactions(@PathVariable("id") Long accountId){
+        List<TransactionDto> transactions = accountService.getAccountTransactions(accountId);
+        return ResponseEntity.ok(transactions);
     }
 
 }
